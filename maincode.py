@@ -55,6 +55,11 @@ constatlist = []
 intstatlist = []
 wisstatlist = []
 chastatlist = []
+alignmentnum = []
+armornum= []
+helmandshieldnum= []
+
+
 
 
 
@@ -149,11 +154,11 @@ def startmenu():
 
 
 def randomstrength():
-    strstatlist.append(random.randint(1, 6))
-    strstatlist.append(random.randint(1, 6))
-    strstatlist.append(random.randint(1, 6))
+    strstatlist.append(random.randint(1, 6) + 10)
+    strstatlist.append(random.randint(1, 6) + 10)
+    strstatlist.append(random.randint(1, 6) + 10)
     strstatlist.sort()
-    PlayerIG.strength = int(strstatlist[:1]) + 10
+    PlayerIG.strength =
 
 def randomdex():
     dexstatlist.append(random.randint(1, 6))
@@ -166,21 +171,68 @@ def randomcon
 
 
 def randomchar():
-    strstatlist.append(random.randint(1, 6))
-    strstatlist.append(random.randint(1, 6))
-    strstatlist.append(random.randint(1, 6))
+    strstatlist.append(random.randint(1, 6) + 10)
+    strstatlist.append(random.randint(1, 6) + 10)
+    strstatlist.append(random.randint(1, 6) + 10)
     strstatlist.sort()
-    PlayerIG.strength = strstatlist[:1] + 10
-    dexstatlist.append(random.randint(1, 6))
-    dexstatlist.append(random.randint(1, 6))
-    dexstatlist.append(random.randint(1, 6))
+    PlayerIG.strength = strstatlist[0]
+    PlayerIG.strbonus = strstatlist[0] - 10
+    dexstatlist.append(random.randint(1, 6) + 10)
+    dexstatlist.append(random.randint(1, 6) + 10)
+    dexstatlist.append(random.randint(1, 6) + 10)
     dexstatlist.sort()
-    PlayerIG.dex = strstatlist[:1]
-    constatlist.append(random.randint(1, 6))
-    constatlist.append(random.randint(1, 6))
-    constatlist.append(random.randint(1, 6))
+    PlayerIG.dex = dexstatlist[0]
+    Player.dexbonus = dexstatlist[0] - 10
+    constatlist.append(random.randint(1, 6) + 10)
+    constatlist.append(random.randint(1, 6) + 10)
+    constatlist.append(random.randint(1, 6) + 10)
     constatlist.sort()
-    PlayerIG.con = int()
+    PlayerIG.con = constatlist[0]
+    PlayerIG.conbonus = constatlist[0] - 10
+    intstatlist.append(random.randint(1, 6) + 10)
+    intstatlist.append(random.randint(1, 6) + 10)
+    intstatlist.append(random.randint(1, 6) + 10)
+    intstatlist.sort()
+    PlayerIG.intel = intstatlist[0]
+    PlayerIG.intelbonus = intstatlist[0] - 10
+    wisstatlist.append(random.randint(1, 6) + 10)
+    wisstatlist.append(random.randint(1, 6) + 10)
+    wisstatlist.append(random.randint(1, 6) + 10)
+    wisstatlist.sort()
+    PlayerIG.wis = wisstatlist[0]
+    PlayerIG.wisbonus = wisstatlist[0] - 10
+    chastatlist.append(random.randint(1, 6) + 10)
+    chastatlist.append(random.randint(1, 6) + 10)
+    chastatlist.append(random.randint(1, 6) + 10)
+    chastatlist.sort()
+    PlayerIG.cha = chastatlist[0]
+    PlayerIG.chabonus = chastatlist[0] - 10
+    PlayerIG.physique = physiquetraits[random.randint(0, 19)]
+    PlayerIG.face = facetraits[random.randint(0, 19)]
+    PlayerIG.skin = skintraits[random.randint(0, 19)]
+    PlayerIG.hair = hairtraits[random.randint(0, 19)]
+    PlayerIG.clothing = clothingtraits[random.randint(0, 19)]
+    PlayerIG.virtue = virtuetraits[random.randint(0, 19)]
+    PlayerIG.vice = vicetraits[random.randint(0, 19)]
+    PlayerIG.speech = speechtraits[random.randint(0, 19)]
+    PlayerIG.background = backgroundtraits[random.randint(0, 19)]
+    PlayerIG.misfortune = misfortunetraits[random.randint(0, 19)]
+    alignmentnum.append(random.randint(1, 20))
+    if alignmentnum[0] <= 5:
+        PlayerIG.alignment = "Law"
+    if (alignmentnum[0] > 5) and (alignmentnum[0] <= 15):
+        PlayerIG.alignment = "Neutraility"
+    if alignmentnum[0] > 15:
+        PlayerIG.alignment = "Chaos"
+    armornum.append(random.randint(1, 20))
+    if armornum[0] <= 3:
+        #####NEEDS WORK NEEDS ARMOR STAT FOR EACH type and to be put into inventory.
+
+
+
+
+
+
 
 
 
