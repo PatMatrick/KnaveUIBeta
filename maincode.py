@@ -108,6 +108,9 @@ class Player:
         self.inventoryslots = 0
         self.currentinventory = 0
         self.rations = 0
+        self.currentarmor = ""
+        self.helmet = ""
+        self.armor = ""
 
 
 
@@ -148,26 +151,10 @@ def startmenu():
             print("No saved data.")
             startmenu()
     if option == "3":
-        randomchar()
+        startuprandom()
     else:
         startmenu()
 
-
-def randomstrength():
-    strstatlist.append(random.randint(1, 6) + 10)
-    strstatlist.append(random.randint(1, 6) + 10)
-    strstatlist.append(random.randint(1, 6) + 10)
-    strstatlist.sort()
-    PlayerIG.strength =
-
-def randomdex():
-    dexstatlist.append(random.randint(1, 6))
-    dexstatlist.append(random.randint(1, 6))
-    dexstatlist.append(random.randint(1, 6))
-    dexstatlist.sort()
-    PlayerIG.dex = int(dexstatlist[:1]) + 10
-
-def randomcon
 
 
 def randomchar():
@@ -182,7 +169,7 @@ def randomchar():
     dexstatlist.append(random.randint(1, 6) + 10)
     dexstatlist.sort()
     PlayerIG.dex = dexstatlist[0]
-    Player.dexbonus = dexstatlist[0] - 10
+    PlayerIG.dexbonus = dexstatlist[0] - 10
     constatlist.append(random.randint(1, 6) + 10)
     constatlist.append(random.randint(1, 6) + 10)
     constatlist.append(random.randint(1, 6) + 10)
@@ -226,6 +213,59 @@ def randomchar():
         PlayerIG.alignment = "Chaos"
     armornum.append(random.randint(1, 20))
     if armornum[0] <= 3:
+        PlayerIG.currentarmor = "None"
+        PlayerIG.armor = 11
+    if (armornum[0] > 3) and (armornum[0] <= 14):
+        PlayerIG.currentarmor = "Gambeson"
+        PlayerIG.armor = 12
+        PlayerIG.inventory.update({"Gambeson" : int(1)})
+    if (armornum[0] >= 15) and (armornum[0] <= 19):
+        PlayerIG.currentarmor = "Brigandine"
+        PlayerIG.armor = 13
+        PlayerIG.inventory.update({"Brigandine" : int(1)})
+    if armornum[0] == 20:
+        PlayerIG.currentarmor = "Chain"
+        PlayerIG.armor = 14
+        PlayerIG.inventory.update({"Chain" : int(1)})
+    PlayerIG.inventory.update({dungeongear[random.randint(0, 19)] : int(1)})
+    PlayerIG.inventory.update({dungeongear[random.randint(0, 19)] : int(1)})
+    PlayerIG.inventory.update({generalgear1[random.randint(0,19)] : int(1)})
+    PlayerIG.inventory.update({generalgear2[random.randint(0, 19)] : int(1)})
+    PlayerIG.rations = 2
+    optionhp = 1
+    #while optionhp < 5:
+        #optionhp = random.randint(1, 8)
+        #if optionhp >= 5:
+            #PlayerIG.maxhp = optionhp
+            #PlayerIG.hp = PlayerIG.maxhp
+            #break
+        #optionhp = random.randint(1, 8)
+    helmandshieldnum.append(random.randint(1, 20))
+    if helmandshieldnum[0] <= 13:
+        PlayerIG.helmet = "None"
+        PlayerIG.shield = "None"
+    if (helmandshieldnum[0] > 13) and (helmandshieldnum[0] <= 16):
+        PlayerIG.helmet = "Equipped"
+        PlayerIG.shield = "None"
+        PlayerIG.inventory.update({"Helmet" : int(1)})
+    if (helmandshieldnum[0] > 16) and (helmandshieldnum[0] <= 19):
+        PlayerIG.helmet = "None"
+        PlayerIG.shield = "Equipped"
+        PlayerIG.inventory.update({"Shield" : int(1)})
+    if helmandshieldnum[0] == 20:
+        PlayerIG.helmet = "Equipped"
+        PlayerIG.shield = "Equipped"
+        PlayerIG.inventory.update({"Helmet" : int(1)})
+        PlayerIG.inventory.update({"Shield" : int(1)})
+    PlayerIG.inventoryslots = PlayerIG.con
+    PlayerIG.copper = 0
+    PlayerIG.level = 1
+    PlayerIG.maxhp = 6
+    PlayerIG.hp = PlayerIG.maxhp
+    mainscreen()
+
+
+
         #####NEEDS WORK NEEDS ARMOR STAT FOR EACH type and to be put into inventory.
 
 
@@ -243,6 +283,14 @@ def startup():
     global PlayerIG
     PlayerIG = Player(option)
     newchar()
+
+def startuprandom():
+    print("NOTE: WHEN ASKED FOR A NUMBER ENTER A NUMBER, WHEN ASKED FOR A TRAIT, USE LETTERS. FAILURE TO DO SO WILL CAUSE CRASH.")
+    print("Let's make a new character! You will need to roll up you stats and enter them here. Enter your name and click enter to continue.")
+    option = input("->")
+    global PlayerIG
+    PlayerIG = Player(option)
+    randomchar()
 
 
 def newchar():
@@ -364,6 +412,10 @@ def mainscreen():
     alignment = "Alignment: " + (PlayerIG.alignment)
     features = "   TRAITS"
     exp = "Experience: " + str(PlayerIG.xp)
+    helmstatus = "Helmet: " + PlayerIG.helmet
+    shieldstatus = "Shield: " + PlayerIG.shield
+    armorstatus = "Current Armor: " + PlayerIG.currentarmor
+    fixer = "------------"
     print(statindicators.center(100, " ") + features.ljust(10, " "))
     print(nameplate.ljust(40, " ") + strline.center(20, " ") + physique.rjust(48, " "))
     print(hp.ljust(40, " ") + dexline.center(20, " ") + face.rjust(48, " "))
@@ -374,8 +426,9 @@ def mainscreen():
     print(armor.ljust(40, " ") + vice.rjust(71, " "))
     print(armorbonus.ljust(40, " ") + speech.rjust(71, " "))
     print(exp.ljust(40, " ") + background.rjust(71, " "))
-    print(misfortune.rjust(111, " "))
-    print(alignment.rjust(111, " "))
+    print(helmstatus.ljust(40, " ") + misfortune.rjust(71, " "))
+    print(shieldstatus.ljust(40, " ") + alignment.rjust(71, " "))
+    print(armorstatus.ljust(40, " ") + fixer.rjust(71, " "))
     print("\n")
     print(commandoptions1.center(100, " "))
     print(commandoptions2.center(100, " "))
