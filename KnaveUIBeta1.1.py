@@ -232,14 +232,6 @@ def randomchar():
     PlayerIG.inventory.update({generalgear1[random.randint(0,19)] : int(1)})
     PlayerIG.inventory.update({generalgear2[random.randint(0, 19)] : int(1)})
     PlayerIG.rations = 2
-    optionhp = 1
-    #while optionhp < 5:
-        #optionhp = random.randint(1, 8)
-        #if optionhp >= 5:
-            #PlayerIG.maxhp = optionhp
-            #PlayerIG.hp = PlayerIG.maxhp
-            #break
-        #optionhp = random.randint(1, 8)
     helmandshieldnum.append(random.randint(1, 20))
     if helmandshieldnum[0] <= 13:
         PlayerIG.helmet = "None"
@@ -260,13 +252,9 @@ def randomchar():
     PlayerIG.inventoryslots = PlayerIG.con
     PlayerIG.copper = 0
     PlayerIG.level = 1
-    PlayerIG.maxhp = 6
+    PlayerIG.maxhp = random.randint(5, 8)
     PlayerIG.hp = PlayerIG.maxhp
     mainscreen()
-
-
-
-        #####NEEDS WORK NEEDS ARMOR STAT FOR EACH type and to be put into inventory.
 
 
 
