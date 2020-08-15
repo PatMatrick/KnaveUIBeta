@@ -123,7 +123,7 @@ def startmenu():
     print("                              |_|\_\_| \_/_/    \_\/   |______|\____/|_____|")
     print("\n")
     print("\n")
-    print("                                     Version Beta 1.0 Developed by:")
+    print("                                     Version Beta 1.1.1 Developed by:")
     print("\n")
     print("                                                 PyRev")
     print("\n")
@@ -369,7 +369,7 @@ def mainscreen():
     commandoptions2 = "2.) Change HP"
     commandoptions3 = "3.) Change Level and Exp"
     commandoptions4 = "4.) Change Copper Amount"
-    commandoptions5 = "5.) Change Stats or Armor"
+    commandoptions5 = "5.) Change Stats or Armor Equipped"
     commandoptions6 = "6.) Change Ration Amount"
     commandoptions7 = "7.) View Inventory"
     commandoptions8 = "8.) Change Inventory"
@@ -558,6 +558,28 @@ def changestats():
     intline = str(PlayerIG.intel) + "       " + " INT        " + str(PlayerIG.intelbonus)
     wisline = str(PlayerIG.wis) + "       " + " WIS        " + str(PlayerIG.wisbonus)
     chaline = str(PlayerIG.cha) + "       " + " CHA        " + str(PlayerIG.chabonus)
+    helmstatus = "Helmet: " + PlayerIG.helmet
+    shieldstatus = "Shield: " + PlayerIG.shield
+    armorstatus = "Current Armor: " + PlayerIG.currentarmor
+    fixer = "------------"
+    armor = "Armor: " + str(PlayerIG.armor)
+    armorbonus = "Armor Bonus: " + str(PlayerIG.armor - 10)
+    face = "Face: " + (PlayerIG.face)
+    skin = "Skin: " + (PlayerIG.skin)
+    hair = "Hair: " + (PlayerIG.hair)
+    clothing = "Clothing " + (PlayerIG.clothing)
+    virtue = "Virtue: " + (PlayerIG.virtue)
+    vice = "Vice: " + (PlayerIG.vice)
+    speech = "Speech: " + (PlayerIG.speech)
+    background = "Background: " + (PlayerIG.background)
+    misfortune = "Misfortune: " + (PlayerIG.misfortune)
+    alignment = "Alignment: " + (PlayerIG.alignment)
+    features = "   TRAITS"
+    exp = "Experience: " + str(PlayerIG.xp)
+    helmstatus = "Helmet: " + PlayerIG.helmet
+    shieldstatus = "Shield: " + PlayerIG.shield
+    armorstatus = "Current Armor: " + PlayerIG.currentarmor
+    fixer = "------------"
     print(statindicators.center(100, " "))
     print(nameplate.ljust(40, " ") + strline.center(20, " "))
     print(hp.ljust(40, " ") + dexline.center(20, " "))
@@ -565,7 +587,13 @@ def changestats():
     print(money.ljust(40, " ") + intline.center(20, " "))
     print(food.ljust(40, " ") + wisline.center(20, " "))
     print(inventoryslots.ljust(40, " ") + chaline.center(20, " "))
-    print("Which stat would you like to change? Bonuses will automatically change. Press b to return")
+    print(armor.ljust(40, " "))
+    print(armorbonus.ljust(40, " "))
+    print(exp.ljust(40, " "))
+    print(helmstatus.ljust(40, " "))
+    print(shieldstatus.ljust(40, " "))
+    print(armorstatus.ljust(40, " "))
+    print("Which stat would you like to change? To change your equipped armor, press 8. Press b to return")
     print("1.) Strength")
     print("2.) Dexterity")
     print("3.) Constitution")
@@ -573,6 +601,7 @@ def changestats():
     print("5.) Wisdom")
     print("6.) Charisma")
     print("7.) Armor")
+    print("8.) Change Equipment")
     option = input("->")
     if option.strip() == "1":
         print("What is your new strength stat?")
@@ -617,6 +646,48 @@ def changestats():
         mainscreen()
     if option.strip().lower() == "b":
         mainscreen()
+    if option.strip() == "8":
+        print("What armor would you like to change?")
+        print("1.) Main Armor")
+        print("2.) Equip Helmet")
+        print("3.) Unequip Helmet")
+        print("4.) Equip Shield")
+        print("5.) Unequip Shield")
+        option = input("->")
+        if option == "1":
+            print("What armor would you like to change to? Type None to unequip main armor. (DON'T FORGET TO CHANGE YOUR ARMOR STAT)")
+            option = input("->")
+            if option in PlayerIG.inventory or option == "None":
+                PlayerIG.currentarmor = option
+                mainscreen()
+            else:
+                print("You don't have that armor! Press enter to continue!")
+                input("->")
+                changestats()
+        if option == "2":
+            if PlayerIG.helmet == "Unequipped" or PlayerIG.helmet == "None" and {"Helmet": 1} in PlayerIG.inventory:
+                PlayerIG.helmet = "Equipped"
+                mainscreen()
+            else:
+                print("Invalid choice. Click enter to continue")
+                input("->")
+                changestats()
+        if option == "3":
+            if PlayerIG.helmet == "Equipped":
+                PlayerIG.helmet = "Unequipped"
+                mainscreen()
+        if option == "4":
+            if PlayerIG.shield == "Unequipped" or PlayerIG.shield == "None" and {"Shield": 1} in PlayerIG.inventory:
+                PlayerIG.shield = "Equipped"
+                mainscreen()
+            else:
+                print("Invalid. Click enter to continue.")
+                changestats()
+        if option == "5":
+            if PlayerIG.shield == "Equipped":
+                PlayerIG.shield = "Unequipped"
+                mainscreen()
+
     else:
         print("Invalid response, try again.")
         changestats()
