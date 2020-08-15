@@ -342,6 +342,26 @@ def newchar():
     PlayerIG.copper = int(input("->"))
     print("How many Inventory Slots do you start with?")
     PlayerIG.inventoryslots = int(input("->"))
+    print("What armor do you have?")
+    PlayerIG.currentarmor = input("->")
+    print("Do you have a helmet? Type Yes or No.")
+    option = input("->")
+    if option.lower().strip() == "yes":
+        PlayerIG.helmet = "Equipped"
+        PlayerIG.inventory.update({"Helmet": 1})
+    if option.lower().strip() == "no":
+        PlayerIG.helmet = "None"
+    else:
+        PlayerIG.helmet = "None"
+    print("Do you have a shield? Yes or No?")
+    option = input("->")
+    if option.lower().strip() == "yes":
+        PlayerIG.shield = "Equipped"
+        PlayerIG.inventory.update({"Shield": 1})
+    if option.lower().strip() == "no":
+        PlayerIG.shield = "None"
+    else:
+        PlayerIG.shield = "None"
     PlayerIG.hp = PlayerIG.maxhp
     PlayerIG.inventory = {"Basic Clothes": 0}
     mainscreen()
