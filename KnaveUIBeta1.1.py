@@ -111,6 +111,11 @@ class Player:
         self.currentarmor = ""
         self.helmet = ""
         self.armor = ""
+        self.packanimal = ""
+        self.animalinventory = {}
+        self.animalmaxslots = 0
+        self.animalslotsfilled = 0
+        self.animal = ""
 
 
 
@@ -254,6 +259,9 @@ def randomchar():
     PlayerIG.level = 1
     PlayerIG.maxhp = random.randint(5, 8)
     PlayerIG.hp = PlayerIG.maxhp
+    PlayerIG.animal = "None"
+    PlayerIG.animalmaxslots = 0
+    PlayerIG.animalslotsfilled = 0
     mainscreen()
 
 
@@ -342,6 +350,20 @@ def newchar():
     PlayerIG.copper = int(input("->"))
     print("How many Inventory Slots do you start with?")
     PlayerIG.inventoryslots = int(input("->"))
+    print("Do you have an animal? Yes or No.")
+    option = input("->")
+    print("Do you have an animal? Yes or No.")
+    option = input("->")
+    if option.lower().strip() == "yes":
+        print("Type the animal and click enter.")
+        option = input("->")
+        PlayerIG.animal = option
+        print("How many inventory slots does it have?")
+        option = input("->")
+        PlayerIG.animalmaxslots = int(option)
+    if option.lower().strip() == "no":
+        PlayerIG.animal = "None"
+        PlayerIG.animalmaxslots = 0
     print("What armor do you have?")
     PlayerIG.currentarmor = input("->")
     print("Do you have a helmet? Type Yes or No.")
@@ -394,6 +416,7 @@ def mainscreen():
     commandoptions7 = "7.) View Inventory"
     commandoptions8 = "8.) Change Inventory"
     commandoptions9 = "9.) Save Current State"
+    commandoptions10 = "10.) Add Animal"
     print("                               _  ___   _     __      ________ _    _ _____")
     print("                              | |/ / \ | |   /\ \    / /  ____| |  | |_   _|")
     print("                              | ' /|  \| |  /  \ \  / /| |__  | |  | | | |")
@@ -447,6 +470,7 @@ def mainscreen():
     print(commandoptions7.center(100, " "))
     print(commandoptions8.center(100, " "))
     print(commandoptions9.center(100, " "))
+    print(commandoptions10.center(100, " "))
     print("Select command option by selecting a number.")
     option = input("->")
     if option == "1":
@@ -476,66 +500,167 @@ def mainscreen():
         # with open("savefile", "rb") as fp:
         #     data = pickle.load(fp)
         #     print(f"dats is {data}")
+    if option.strip() == "10":
+        changeanimal()
     else:
         mainscreen()
+
+def changeanimal():
+    print("Add animal? Or Delete current animal?")
+    print("1.) Add")
+    print("2.) Delete")
+    option = input("->")
+    if option.strip() == "1":
+        print("Type the name of the animal. CLick enter.")
+        option = input("->")
+        PlayerIG.animal = option
+        print("How many slots does it have?")
+        option2 = input("->")
+        PlayerIG.animalmaxslots = int(option2)
+        print("Animal added!")
+        input("->")
+        mainscreen()
+    if option.strip() == "2":
+        print("Your active animal is a " + PlayerIG.animal)
+        print("Would you like to delete it? Type Yes or No")
+        option = input("->")
+        if option.strip.lower() == "yes":
+            PlayerIG.animal = "None"
+            PlayerIG.animalslotsfilled = 0
+            PlayerIG.animalmaxslots = 0
+        if option.lower().strip() == "no":
+            changeanimal()
+        else:
+            changeanimal()
+    else:
+        changeanimal()
+
+
 
 
 
 def viewinventory():
-    inventorydisplay = PlayerIG.inventory
-    print("You open your bag and check your inventory. Press b to return.")
-    print("Item is on the left column, number of Inventory Slots is on the right")
-    print("\n")
-    for key, value in inventorydisplay.items():
-        print(key, " : ", value)
+    print("Which inventory?")
+    print("1.) Personal Inventory")
+    print("2.) Animal Inventory")
     option = input("->")
-    if option.strip().lower() == "b":
-        mainscreen()
-    else:
-        viewinventory()
+    if option == "1":
+        inventorydisplay = PlayerIG.inventory
+        print("You open your bag and check your inventory. Press b to return.")
+        print("Item is on the left column, number of Inventory Slots is on the right")
+        print("\n")
+        for key, value in inventorydisplay.items():
+            print(key, " : ", value)
+        option = input("->")
+        if option.strip().lower() == "b":
+            mainscreen()
+        else:
+            viewinventory()
+    if option == "2":
+        animalslots = PlayerIG.animalinventory
+        print("You look in the pack on your animal and find...")
+        print("\n")
+        for key, value in animalslots.items():
+            print(key, " : ", value)
+        option = input("->")
+        if option.strip().lower() == "b":
+            mainscreen()
+        else:
+            viewinventory()
+
 
 
 
 def changeinventory():
     slotsremaining = PlayerIG.inventoryslots - sum(PlayerIG.inventory.values())
+    if PlayerIG.animal != "None":
+        animalslotsremaining = PlayerIG.animalmaxslots - sum(PlayerIG.animalslotsfilled.values())
     inventorydisplay = PlayerIG.inventory
-    print("Are you removing or adding something?")
+    animalslots = PlayerIG.animalinventory
+    print("Are you removing or adding something? Press b and enter to return.")
     print("1.) Removing")
     print("2.) Adding")
     option = input("->")
-    if option == "1":
-        print("Item:           Slots")
-        for key, value in inventorydisplay.items():
-            print(key, " : ", value)
-        print("Type the item you wish to remove.")
+    if option.strip() == "1":
+        print("From where?")
+        print("1.) Personal Inventory")
+        print("2.) Animal Inventory")
         option = input("->")
-        if option in PlayerIG.inventory:
-            PlayerIG.inventory.pop(option)
+        if option.strip() == "1":
+            print("Animal Inventory")
+            print("Item:           Slots")
+            for key, value in inventorydisplay.items():
+                print(key, " : ", value)
+            print("Type the item you wish to remove.")
+            option = input("->")
+            if option in PlayerIG.inventory:
+                    PlayerIG.inventory.pop(option)
+                    print("Item Removed!")
+                    input("->")
+            else:
+                print("Item not in inventory, try again.")
+                changeinventory()
+        if option.strip() == "2":
+            if PlayerIG.animal == "None":
+                print("No animal!")
+                mainscreen()
+            print("Animal Inventory")
+            print("Item:            Slots")
+        for key, value in animalslots.items():
+            print(key, " : ", value)
+        print("Type the item you wish to remove")
+        option = input("->")
+        if option in PlayerIG.animalinventory:
+            PlayerIG.animalinventory.pop(option)
             print("Item Removed!")
             input("->")
-        else:
-            print("Item not in inventory, try again.")
-            changeinventory()
     if option == "2":
-        print("Item:           Slots")
-        for key, value in inventorydisplay.items():
-            print(key, " : ", value)
-        print("Type the item you wish to add.")
+        print("From where?")
+        print("1.) Personal Inventory")
+        print("2.) Animal Inventory")
         option = input("->")
-        print("Type the number of slots it takes up.")
-        option2 = input("->")
-        if int(option2) > slotsremaining:
-            print("Not enough space! Remove items and try again!")
-        else:
-            PlayerIG.inventory.update({str(option) : int(option2)})
-            print("Item Added!")
-            input("->")
+        if option == "1":
+            print("Personal Inventory")
+            print("Item:           Slots")
+            for key, value in inventorydisplay.items():
+                print(key, " : ", value)
+            print("Type the item you wish to add.")
+            option = input("->")
+            print("Type the number of slots it takes up.")
+            option2 = input("->")
+            if int(option2) > slotsremaining:
+                print("Not enough space! Remove items and try again!")
+            else:
+                PlayerIG.inventory.update({str(option): int(option2)})
+                print("Item Added!")
+                input("->")
+                mainscreen()
+        if option.strip().lower() == "b":
             mainscreen()
+        if option == "2":
+            if PlayerIG.animal == "None":
+                print("No animal!")
+                input("->")
+                mainscreen()
+            print("Animal Inventory")
+            print("Item:          Slots")
+            for key, value in animalslots.items():
+                print(key, " : ", value)
+            print("Type the Item you wish to add.")
+            option = input("->")
+            print("Type the number of slots it takes up.")
+            option2 = input("->")
+            if int(option2) > animalslotsremaining:
+                print("Not enough space! Remove items and try again.")
+            else:
+                PlayerIG.animalinventory.update({str(option): int(option2)})
+                print("Item Added!")
+                input("->")
+                mainscreen()
+        else:
+            changeinventory()
     if option.strip().lower() == "b":
         mainscreen()
-    else:
-        changeinventory()
-
 
 
 
