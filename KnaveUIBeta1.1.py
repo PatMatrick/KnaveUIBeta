@@ -20,7 +20,7 @@ clothingtraits = ["Antique", "Bloody", "Ceremonials", "Decorated", "Eccentric", 
                   "Flamboyant", "Stained", "Foreign", "Frayed", "Frumpy", "Livery", "Oversized", "Patched", "Perfumed",
                   "Rancid", "Torn", "Undersized"]
 virtuetraits = ["Ambitious", "Cautious", "Courageous", "Courteous", "Curious", "Disciplined", "Focused", "Generous",
-                "Gregarious", "Hoenst", "Honorable", "Humble", "Idealistic", "Just", "Loyal", "Merciful", "Righteous",
+                "Gregarious", "Honest", "Honorable", "Humble", "Idealistic", "Just", "Loyal", "Merciful", "Righteous",
                 "Serene", "Stoic", "Tolerant"]
 vicetraits = ["Aggressive", "Arrogant", "Bitter", "Cowardly", "Cruel", "Deceitful", "Flippant", "Gluttonous", "Greedy",
               "Irascible", "Lazy", "Nervous", "Prejudiced", "Reckless", "Rude", "Suspicious", "Vain", "Vengeful",
