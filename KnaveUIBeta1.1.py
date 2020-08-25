@@ -447,6 +447,8 @@ def mainscreen():
     shieldstatus = "Shield: " + PlayerIG.shield
     armorstatus = "Current Armor: " + PlayerIG.currentarmor
     fixer = "------------"
+    animal = "Animal: " + PlayerIG.animal
+    animalslots1 = "Animal Slots: " + str(PlayerIG.animalslotsfilled) + "/" + str(PlayerIG.animalmaxslots)
     print(statindicators.center(100, " ") + features.ljust(10, " "))
     print(nameplate.ljust(40, " ") + strline.center(20, " ") + physique.rjust(48, " "))
     print(hp.ljust(40, " ") + dexline.center(20, " ") + face.rjust(48, " "))
@@ -460,6 +462,9 @@ def mainscreen():
     print(helmstatus.ljust(40, " ") + misfortune.rjust(71, " "))
     print(shieldstatus.ljust(40, " ") + alignment.rjust(71, " "))
     print(armorstatus.ljust(40, " ") + fixer.rjust(71, " "))
+    print(animal.ljust(40, " "))
+    print(animalslots1.ljust(40, " "))
+    print()
     print("\n")
     print(commandoptions1.center(100, " "))
     print(commandoptions2.center(100, " "))
@@ -574,7 +579,7 @@ def viewinventory():
 def changeinventory():
     slotsremaining = PlayerIG.inventoryslots - sum(PlayerIG.inventory.values())
     if PlayerIG.animal != "None":
-        animalslotsremaining = PlayerIG.animalmaxslots - sum(PlayerIG.animalslotsfilled.values())
+        animalslotsremaining = PlayerIG.animalmaxslots - PlayerIG.animalslotsfilled
     inventorydisplay = PlayerIG.inventory
     animalslots = PlayerIG.animalinventory
     print("Are you removing or adding something? Press b and enter to return.")
@@ -654,6 +659,7 @@ def changeinventory():
                 print("Not enough space! Remove items and try again.")
             else:
                 PlayerIG.animalinventory.update({str(option): int(option2)})
+                PlayerIG.animalslotsfilled = int(option2)
                 print("Item Added!")
                 input("->")
                 mainscreen()
