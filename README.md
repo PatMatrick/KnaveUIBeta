@@ -10,3 +10,11 @@ There are a few features. You can add in an old chraracter by answering a series
 Thanks,
 
 PyRev
+
+
+
+Version 1.1
+----Added a random character generator
+
+Version 1.2
+----Added an Animal feature with stand alone inventory slots
