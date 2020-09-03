@@ -1,4 +1,3 @@
-##HELLOOOOO
 
 import math
 import random
@@ -501,10 +500,6 @@ def mainscreen():
         f.close()
         input("->")
         mainscreen()
-        #print(f"dats is")
-        # with open("savefile", "rb") as fp:
-        #     data = pickle.load(fp)
-        #     print(f"dats is {data}")
     if option.strip() == "10":
         changeanimal()
     else:
@@ -1224,8 +1219,10 @@ def dicerolld100():
 
 
 def dead():
-    print("You dead sucka! Time to roll up a new one! Click Enter to continue")
+    print("You dead sucka! Time to roll up a new one! Click Enter to restart")
     input("->")
+    PlayerIG.hp = PlayerIG.maxhp
+    mainscreen()
 
 
 
