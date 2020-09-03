@@ -127,7 +127,7 @@ def startmenu():
     print("                              |_|\_\_| \_/_/    \_\/   |______|\____/|_____|")
     print("\n")
     print("\n")
-    print("                                     Version Beta 1.2 Developed by:")
+    print("                                     Version Beta 1.2.1 Developed by:")
     print("\n")
     print("                                                 PyRev")
     print("\n")

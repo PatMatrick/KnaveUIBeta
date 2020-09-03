@@ -18,3 +18,6 @@ Version 1.1
 
 Version 1.2
 ----Added an Animal feature with stand alone inventory slots
+
+Version 1.2.1
+---Fixed a bug in the dead function. Continuing to look at fixing more bugs.
